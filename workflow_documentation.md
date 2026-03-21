@@ -28,8 +28,7 @@ To maintain stability and progress tracking, process tickers in groups of **10**
 2.  **Format**: Convert the research into a `DATA` dictionary compatible with `fix_batch.py`.
     -   **Business Intro**: Professional Traditional Chinese, removing all original English.
     -   **Comprehensive Tagging (Gold Standard)**: A minimum of 8 concise, noun-based, unbolded `[[Wikilinks]]` per file. Tag **every** key product and technology (e.g. `[[AI 伺服器]]`, `[[ABF 載板]]`). This is the foundation for finding competitors.
-    -   **Supply Chain**: Explicit Top/Mid/Downstream (`上游`/`中游`/`下游`) bulleted sections.
-    -   **Clients/Suppliers (EXACT COMPANY NAMES REQUIRED)**: You MUST ALWAYS strive for specific, exact client and supplier company names (e.g., `[[Apple]]`, `[[日月光]]`, `[[Tesla]]`) rather than generic types or categories (e.g., `[[晶圓代工廠]]`, `[[電動車品牌]]`). Use exhaustive web search directly targeting actual corporate counterparts in the supply chain. PLACEHOLDERS ARE BANNED.
+    -   **Supply Chain / Clients / Suppliers (ENHANCED GOLD STANDARD)**: You MUST break these sections down by **Business Segment/Category** using bullet points. Explicit Top/Mid/Downstream (`上游`/`中游`/`下游`) must still exist for the supply chain, but populated with categorized sub-bullets. Strive for specific, exact client and supplier company names (e.g., `[[Apple]]`, `[[日月光]]`, `[[Tesla]]`) within these segments. PLACEHOLDERS ARE BANNED.
     -   **Wikilinks**: Ensure all technical terms and partner companies are tagged.
 
 ### Phase B: Injection & Execution

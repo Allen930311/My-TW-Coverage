@@ -63,20 +63,26 @@ This workflow is used to enrich a company's Markdown report with business detail
             - **ENSURE the original English text is completely removed.**
             - Ensure the tone is professional and informative.
         - **Supply Chain Position (供應鏈位置)**:
-            - **STRICT FORMATTING MANDATE**: You MUST format this section EXACTLY using the following three bullet points, prepended by a brief structural sentence:
-              *   **上游**: [Supplier list with wikilinks, e.g. [[鋼材廠]]]
-              *   **中游**: **[Company Name]** ([Core activities])
-              *   **下游**: [Customer list with wikilinks, e.g. [[汽車製造商]]]
+            - **ENHANCED FORMATTING MANDATE (Segmented Detail)**: You MUST format this section extensively using detailed, segmented categories rather than forcing all data into 3 single lines. 
+            - Group the supply chain by Business Segment, Process, or Category. Use bold headers for the upstream/midstream/downstream phase, followed by bulleted sub-categories.
+              Example:
+              **上游 (原料與能源):**
+              - **核心原料:** [[石灰石]], 砂石...
+              - **能源:** [[太陽能]], 風電...
+              **下游應用 (終端市場):**
+              - **基礎建設:** 機場, 港口...
+              - **科技廠房:** 半導體廠...
             - It is highly encouraged to use specific industry categories or asset types here if exact names belong in the next section.
         - **Key Customers & Suppliers (主要客戶及供應商)**:
-            - **STRICT MANDATE (SPECIFIC COMPANY NAMES)**: You MUST ALWAYS strive for specific, exact company names (e.g., `[[Apple]]`, `[[Tesla]]`, `[[台積電]]`, `[[聯發科]]`) rather than just the "type" or "category" of customer/supplier (like `[[消費性電子大廠]]` or `[[汽車製造商]]`). 
+            - **ENHANCED FORMATTING MANDATE**: Break down the specific clients and suppliers by Business Segment, Industry, or Product Category using bullet points. Do not lump them together.
+            - **STRICT MANDATE (SPECIFIC COMPANY NAMES)**: You MUST ALWAYS strive for specific, exact company names (e.g., `[[Apple]]`, `[[Tesla]]`, `[[台積電]]`, `[[聯發科]]`) inside these segments. 
             - **Web Search Deep-Dive**: You must exhaustively search the web (including annual reports and investor conferences) to find real corporate entity names. 
-            - **DO NOT** use placeholders like `[[一般消費者]]` or `[[國際大廠]]`. Generic descriptions are only allowed as an absolute last resort if extreme confidentiality (NDAs) completely redacts all traces of specific corporate partners on the entire internet.
+            - **DO NOT** use placeholders like `[[一般消費者]]` or `[[國際大廠]]`. Generic descriptions are only allowed as an absolute last resort.
         - **Financial Overview (財務概況)**:
             - **KEEP THE FINANCIAL SECTION UNTOUCHED.**
             - If the original file had a financial table or placeholder, preserve it exactly. Do not regenerate or modify the financial data unless explicitly instructed.
 
-## Example Output Format
+## Example Output Format (Enhanced Gold Standard)
 
 ```markdown
 # 1234 - Example Co
@@ -90,16 +96,22 @@ This workflow is used to enrich a company's Markdown report with business detail
 Example Co 是一家專注於 [[半導體]] 封測的廠商... (Traditional Chinese description with [[wikilinks]])
 
 ## 供應鏈位置
-*   **上游**: [[晶圓代工]] (e.g., [[TSMC]]), [[導線架]].
-*   **中游**: **Example Co** (封測).
-*   **下游**: [[消費性電子]], [[車用電子]].
+**上游 (原料設備):**
+- **晶圓製造:** 採購自 [[TSMC]], [[聯電]].
+- **封裝材料:** 採購 [[導線架]], [[封裝膠]].
+
+**下游應用 (終端市場):**
+- **消費性電子:** 智慧型手機, 平板電腦.
+- **車用市場:** 供應給 [[電動車]] 製造商.
 
 ## 主要客戶及供應商
 ### 主要客戶
-*   [[Apple]], [[NVIDIA]].
+- **智慧手機:** [[Apple]], [[Samsung]].
+- **AI 伺服器:** [[NVIDIA]], [[Supermicro]].
 
 ### 主要供應商
-*   [[日月光]], [[長華]].
+- **晶圓製造:** [[TSMC]], [[GlobalFoundries]].
+- **封裝設備:** [[KLA]], [[ASML]].
 
 ## 財務概況 (單位: 百萬台幣, 只有 Margin 為 %)
 (Preserve existing financial tables)
