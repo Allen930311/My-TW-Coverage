@@ -27,9 +27,9 @@ To maintain stability and progress tracking, process tickers in groups of **10**
 1.  **Research**: Use `search_web` for a group of 10 tickers sequentially.
 2.  **Format**: Convert the research into a `DATA` dictionary compatible with `fix_batch.py`.
     -   **Business Intro**: Professional Traditional Chinese, removing all original English.
-    -   **Comprehensive Tagging**: Use `[[Wikilinks]]` for **every** key product and technology (e.g. `[[AI 伺服器]]`, `[[ABF 載板]]`). This is the foundation for finding competitors.
-    -   **Supply Chain**: Explicit Up/Mid/Downstream sections.
-    -   **Clients/Suppliers**: Specific names with `[[link]]` tags.
+    -   **Comprehensive Tagging (Gold Standard)**: A minimum of 8 concise, noun-based, unbolded `[[Wikilinks]]` per file. Tag **every** key product and technology (e.g. `[[AI 伺服器]]`, `[[ABF 載板]]`). This is the foundation for finding competitors.
+    -   **Supply Chain**: Explicit Top/Mid/Downstream (`上游`/`中游`/`下游`) bulleted sections.
+    -   **Clients/Suppliers (EXACT COMPANY NAMES REQUIRED)**: You MUST ALWAYS strive for specific, exact client and supplier company names (e.g., `[[Apple]]`, `[[日月光]]`, `[[Tesla]]`) rather than generic types or categories (e.g., `[[晶圓代工廠]]`, `[[電動車品牌]]`). Use exhaustive web search directly targeting actual corporate counterparts in the supply chain. PLACEHOLDERS ARE BANNED.
     -   **Wikilinks**: Ensure all technical terms and partner companies are tagged.
 
 ### Phase B: Injection & Execution
@@ -64,9 +64,18 @@ To ensure 100% consistency across sessions and different agents:
 
 ---
 
-## 5. Standard Operation for "Run Enrichment for Batch X"
+## 6. Definition of "Batch Completed" (CRITICAL STRATEGY)
+The user has strictly defined that marking a batch as "Completed" means **every single .md file** within the batch MUST securely possess:
+1. **Intact Metadata**: The `板塊`, `產業`, `市值`, and `企業價值` lines MUST be present. If they were missing from base generation, the Agent MUST research and organically inject them. If the values contain `(待更新)`, the Agent MUST fetch the exact values (e.g., via web search for market cap) and replace the placeholders.
+2. **Gold Standard Supply Chain**: Explicitly structured with `上游`/`中游`/`下游`.
+3. **Major Customers & Suppliers**: Must consist of **EXACT COMPANY NAMES** (e.g., `[[Intel]]`, `[[Nvidia]]`, `[[鴻海]]`) rather than broad generic entity types, leaving zero placeholders.
+4. **Translated Description**: Professional Traditional Chinese, completely devoid of the original English text.
+5. **Intact Financials**: The formatted financial data tables MUST remain strictly preserved and not accidentally deleted.
+
+## 7. Standard Operation for "Run Enrichment for Batch X"
 When the user gives this command, the agent must:
-1. Load this document.
-2. Run Step 1 (Audit).
-3. Execute Step 2 Phase A & B in loops of 10 until the batch is 100% clean.
-4. Notify the user only when the batch is finished or a major blocker is found.
+1. Load this document to remember the strict completion criteria.
+2. Run Step 1 (Audit) and perform a **Pre-Enrichment Verification** to check if files are natively missing the baseline metadata block or contain `(待更新)`.
+3. Execute Phase A & B in loops of 10 until the batch is enriched.
+4. Perform a **Post-Batch Review** ensuring zero `(待更新)` or `*(待 AI 補充)*` placeholders remain in any field (Metadata, Supply Chain, Clients/Suppliers).
+5. Notify the user only when the batch is finished and 100% compliant, or a major blocker is found.

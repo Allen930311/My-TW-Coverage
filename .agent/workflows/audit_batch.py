@@ -12,9 +12,8 @@ def get_tickers_for_batch(batch_num):
         with open(TASK_FILE, "r", encoding="utf-8") as f:
             content = f.read()
         
-        # Regex to find the batch line: e.g., "- [x] **Batch 21**: 4908, 4909..."
-        # Case insensitive, handles various whitespace and checkbox states
-        pattern = re.compile(r"Batch\s+" + str(batch_num) + r"[\*\s]*:[:\s]*(.*)$", re.IGNORECASE | re.MULTILINE)
+        # Regex to find the batch line: e.g., "- [ ] **Batch 1** (Advertising Agencies): 6136"
+        pattern = re.compile(r"Batch\s+" + str(batch_num) + r"\*\*.*?:[:\s]*(.*)$", re.IGNORECASE | re.MULTILINE)
         match = pattern.search(content)
         
         if match:
@@ -85,9 +84,9 @@ def audit_batch(batch_num):
                 continue
 
             # Strict Check 2: Must NOT contain placeholder
-            if "*(待 AI 補充)*" in content:
+            if "待 AI 補充" in content or "待 [[AI]] 補充" in content:
                 needs_enrichment.append(ticker)
-                print(f"Ticker {ticker}: Found placeholder *(待 AI 補充)*")
+                print(f"Ticker {ticker}: Found placeholder (待 AI 補充)")
                 continue
             
             # Strict Check 3: Check for English Introduction (Simple heuristic)

@@ -14,8 +14,12 @@ This workflow is used to enrich a company's Markdown report with business detail
 - **UTF-8 Encoding**: Every file write or modification MUST use UTF-8 encoding. Never use default shell encoding (like `Set-Content` without `-Encoding utf8`).
 - **Clean Filenames**: NEVER use URL-encoded characters in filenames (e.g., use `3624_光頡.md`, NOT `3624_%E5%85%89%E9%A0%A1.md`).
 - **Clean Overwrite**: If a file is suspected of containing binary junk or encoding errors, delete it via terminal before writing the fresh content.
-- **Data Integrity**: **Metadata** (`板塊`, `產業`, `市值`, `企業價值`) and **Financial Tables** MUST be preserved exactly as they are in the original file. Do not regenerate or modify them.
-- **Universal Tagging Rule**: EVERY identifiable entity (companies, vendors, partners) and key product/technology mentioned MUST be wrapped in `[[Wikilinks]]`. Consistency is mandatory: if you tag `[[Broadcom]]`, you must also tag `[[Jabil]]`. Inconsistent tagging breaks our competitive mapping capability.
+- **Data Integrity**: **Metadata** (`板塊`, `產業`, `市值`, `企業價值`) and **Financial Tables** MUST be preserved exactly as they are in the original file. 
+    - **CRITICAL FAIL-SAFE**: If the metadata block (`**板塊:**...`) is completely missing, or if any field contains `(待更新)` or `*(待 AI 補充)*`, you MUST find the exact information via deep web search (or `yfinance`) and explicitly INJECT IT. **NEVER** leave `(待更新)` placeholders for Market Cap or Enterprise Value. Convert billions (億) to millions (百萬) where necessary. If Enterprise Value is fundamentally unavailable (e.g., for Banks), explicitly write `N/A 百萬台幣`.
+    - **CRITICAL FAIL-SAFE**: If the `## 主要客戶及供應商` header is completely missing from the base file, you MUST explicitly insert the header and its content right above `## 財務概況`.
+- **No Python Injection Scripts (`temp.py`)**: Do NOT write batch Python scripts to perform regex replacements on the Markdown files. Use your native `write_to_file` or `multi_replace_file_content` tools to edit files directly. Python scripts are brittle, fail silently on missing headers, and clutter the workspace.
+- **No Lazy Omissions & Specificity Mandate**: The phrase `(基於嚴格實名制，因未查獲確切客戶全名而予省略)` and placeholders like `*(待 AI 補充)*` are STRICTLY BANNED. You MUST perform extreme deep web searches to find **specific entity names** (the more specific the better). Only fall back to descriptive generics (e.g., `[[北美大型汽車零配件連鎖巨頭]]`) if specific names are genuinely hidden behind NDAs after exhaustive search. 
+- **Universal Tagging Rule (Gold Standard)**: EVERY identifiable entity and key product/technology MUST be wrapped in `[[Wikilinks]]`. **Every file MUST contain a minimum of 8 concise, noun-based wikilinks.** Do not use bolding inside the wikilinks. Consistency is mandatory (tag `[[Broadcom]]` and `[[Jabil]]`).
 
 ## Steps
 
@@ -41,26 +45,33 @@ This workflow is used to enrich a company's Markdown report with business detail
 
 2.  **Research the Company**:
     - Use `search_web` to find information about the company (Ticker + Name).
+    - **NO LAZY RESEARCH**: You MUST dig deep to find EXACT company names. Query specifically for `[Ticker] 法說會`, `[Ticker] 年報`, or `[Ticker] 主要供應商/客戶`.
+    - **ANTI-LAZINESS MANDATE**: The quality and integrity of your research MUST NOT degrade as you progress through multiple batches. Treat the 50th ticker with the exact same rigorous deep-search standard as the 1st ticker. NEVER resort to guessing or generic filling just to save time.
     - Focus on finding:
         - **Business Description**: What does the company do? What are its main products/services? History?
-        - **Supply Chain Position**: Where does it sit in the supply chain (Upstream, Midstream, Downstream)? Who are its upstream suppliers and downstream customers?
-        - **Key Customers & Suppliers**: Specific names of major customers and suppliers.
+        - **Supply Chain Position**: Where does it sit in the supply chain (Upstream, Midstream, Downstream)? Who are its upstream suppliers and downstream customers? (Generic categories are allowed here).
+        - **Key Customers & Suppliers**: Specific names of major customers and suppliers. If exact names are hidden, find their closest identifiable partners or competitors.
 
 3.  **Enrich the Report (Write to File)**:
     - Use `write_to_file` to overwrite the *entire* file with the enriched content.
     - **Structure:**
         - **Header**: Keep the `# Ticker - Name` header.
-        - **Metadata**: **RESTORE the `板塊`, `產業`, `市值`, `企業價值` lines exactly as they were in the original file.**
+        - **Metadata**: **RESTORE the `板塊`, `產業`, `市值`, `企業價值` lines exactly as they were in the original file.** If they were missing, manually insert them based on your research in the exact format shown in the Example Output.
         - **Business Description (業務簡介)**:
             - **REPLACE the entire original English description** with a **Traditional Chinese** translation.
             - **COMPREHENSIVE TAGGING:** Add `[[Wikilinks]]` for every major product, manufacturing process, and target market. This data is used to find "product peers" and competitors.
             - **ENSURE the original English text is completely removed.**
             - Ensure the tone is professional and informative.
         - **Supply Chain Position (供應鏈位置)**:
-            - Describe the company's position (Upstream/Midstream/Downstream).
-            - List Upstream (Materials/Components) and Downstream (Applications/End Products) with wikilinks.
+            - **STRICT FORMATTING MANDATE**: You MUST format this section EXACTLY using the following three bullet points, prepended by a brief structural sentence:
+              *   **上游**: [Supplier list with wikilinks, e.g. [[鋼材廠]]]
+              *   **中游**: **[Company Name]** ([Core activities])
+              *   **下游**: [Customer list with wikilinks, e.g. [[汽車製造商]]]
+            - It is highly encouraged to use specific industry categories or asset types here if exact names belong in the next section.
         - **Key Customers & Suppliers (主要客戶及供應商)**:
-            - List specific major customers and suppliers with wikilinks where possible.
+            - **STRICT MANDATE (SPECIFIC COMPANY NAMES)**: You MUST ALWAYS strive for specific, exact company names (e.g., `[[Apple]]`, `[[Tesla]]`, `[[台積電]]`, `[[聯發科]]`) rather than just the "type" or "category" of customer/supplier (like `[[消費性電子大廠]]` or `[[汽車製造商]]`). 
+            - **Web Search Deep-Dive**: You must exhaustively search the web (including annual reports and investor conferences) to find real corporate entity names. 
+            - **DO NOT** use placeholders like `[[一般消費者]]` or `[[國際大廠]]`. Generic descriptions are only allowed as an absolute last resort if extreme confidentiality (NDAs) completely redacts all traces of specific corporate partners on the entire internet.
         - **Financial Overview (財務概況)**:
             - **KEEP THE FINANCIAL SECTION UNTOUCHED.**
             - If the original file had a financial table or placeholder, preserve it exactly. Do not regenerate or modify the financial data unless explicitly instructed.
@@ -98,6 +109,7 @@ Example Co 是一家專注於 [[半導體]] 封測的廠商... (Traditional Chin
 4.  **Verification**:
     - Review the generated file to ensure:
         - Metadata lines are present and correct.
-        - Business description is in Traditional Chinese with wikilinks.
+        - Business description is in Traditional Chinese with a minimum of 8 strict `[[wikilinks]]`.
         - **NO original English description remains.**
+        - **NO placeholders like `*(待 AI 補充)*` or robotic omission phrases remain.** Re-research if found.
         - Financial section is present and unmodified.
