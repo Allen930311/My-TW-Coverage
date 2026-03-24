@@ -150,9 +150,9 @@ Pilot_Reports/{Industry}/{Ticker}_{ChineseName}.md
 ### Tools
 | Tool | Command | Purpose |
 |---|---|---|
-| Audit | `python .agent/workflows/audit_batch.py <batch> -v` | Single batch quality check |
-| Audit All | `python .agent/workflows/audit_batch.py --all -v` | Regression check on all completed batches |
-| Enrich | Edit DATA in `.agent/workflows/fix_batch.py`, then run | Apply enrichment to files |
+| Audit | `python scripts/audit_batch.py <batch> -v` | Single batch quality check |
+| Audit All | `python scripts/audit_batch.py --all -v` | Regression check on all completed batches |
+| Enrich | Edit DATA in `scripts/fix_batch.py`, then run | Apply enrichment to files |
 
 ### Process
 ```

@@ -4,6 +4,4 @@ __pycache__/
 .DS_Store
 temp_*
 *.tmp
-formatted_batches.txt
-full_task_batches.txt
-temp_dirs.csv
+_temp_fix_*.py

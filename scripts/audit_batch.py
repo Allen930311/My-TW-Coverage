@@ -2,9 +2,10 @@ import os
 import re
 import sys
 
-# Configuration
-TASK_FILE = r"f:\My TW Coverage\task.md"
-REPORTS_DIR = r"f:\My TW Coverage\Pilot_Reports"
+# Configuration — paths relative to project root
+PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+TASK_FILE = os.path.join(PROJECT_ROOT, "task.md")
+REPORTS_DIR = os.path.join(PROJECT_ROOT, "Pilot_Reports")
 
 # --- Quality Rules (aligned with CLAUDE.md Golden Rules) ---
 
