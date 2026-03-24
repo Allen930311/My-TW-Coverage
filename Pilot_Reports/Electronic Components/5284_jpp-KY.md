@@ -45,16 +45,16 @@ jpp-KY位於金屬機構件供應鏈的中游製造端，具備從設計、雷�
 ### 季度關鍵財務數據 (近 4 季)
 |                         |   2024-06-30 00:00:00 |   2024-09-30 00:00:00 |   2024-12-31 00:00:00 |   2025-03-31 00:00:00 |
 |:------------------------|----------------------:|----------------------:|----------------------:|----------------------:|
-| Revenue                 |                   nan |                   nan |                699.32 |                806.26 |
-| Gross Profit            |                   nan |                   nan |                260.59 |                280.68 |
-| Gross Margin (%)        |                   nan |                   nan |                 37.26 |                 34.81 |
-| Selling & Marketing Exp |                   nan |                   nan |                 14.93 |                 22.98 |
-| General & Admin Exp     |                   nan |                   nan |                102.57 |                 76.45 |
-| Operating Income        |                   nan |                   nan |                135.47 |                173.51 |
-| Operating Margin (%)    |                   nan |                   nan |                 19.37 |                 21.52 |
-| Net Income              |                   nan |                   nan |                 74.66 |                128.08 |
-| Net Margin (%)          |                   nan |                   nan |                 10.68 |                 15.89 |
-| Op Cash Flow            |                   nan |                   nan |                -93.07 |                147.64 |
-| Investing Cash Flow     |                   nan |                   nan |               -504.55 |               -151.28 |
-| Financing Cash Flow     |                   nan |                   nan |                767.61 |               -327.42 |
-| CAPEX                   |                   nan |                   nan |               -510.97 |               -130.38 |
+| Revenue                 |                   - |                   - |                699.32 |                806.26 |
+| Gross Profit            |                   - |                   - |                260.59 |                280.68 |
+| Gross Margin (%)        |                   - |                   - |                 37.26 |                 34.81 |
+| Selling & Marketing Exp |                   - |                   - |                 14.93 |                 22.98 |
+| General & Admin Exp     |                   - |                   - |                102.57 |                 76.45 |
+| Operating Income        |                   - |                   - |                135.47 |                173.51 |
+| Operating Margin (%)    |                   - |                   - |                 19.37 |                 21.52 |
+| Net Income              |                   - |                   - |                 74.66 |                128.08 |
+| Net Margin (%)          |                   - |                   - |                 10.68 |                 15.89 |
+| Op Cash Flow            |                   - |                   - |                -93.07 |                147.64 |
+| Investing Cash Flow     |                   - |                   - |               -504.55 |               -151.28 |
+| Financing Cash Flow     |                   - |                   - |                767.61 |               -327.42 |
+| CAPEX                   |                   - |                   - |               -510.97 |               -130.38 |

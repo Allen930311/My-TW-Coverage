@@ -99,6 +99,7 @@ def fetch_financials(ticker):
 
             df_annual = extract_metrics(stock.income_stmt, stock.cashflow)
             if not df_annual.empty:
+                df_annual = df_annual.dropna(axis=1, how="all")
                 non_pct = [r for r in df_annual.index if "%" not in r]
                 df_annual.loc[non_pct] = df_annual.loc[non_pct] / 1_000_000
                 df_annual = df_annual.iloc[:, :3]
@@ -107,6 +108,8 @@ def fetch_financials(ticker):
                 stock.quarterly_income_stmt, stock.quarterly_cashflow
             )
             if not df_quarterly.empty:
+                # Drop columns where all values are NaN (unreported quarters)
+                df_quarterly = df_quarterly.dropna(axis=1, how="all")
                 non_pct = [r for r in df_quarterly.index if "%" not in r]
                 df_quarterly.loc[non_pct] = df_quarterly.loc[non_pct] / 1_000_000
                 df_quarterly = df_quarterly.iloc[:, :4]
@@ -141,12 +144,14 @@ def build_financial_section(data):
     section = "## 財務概況 (單位: 百萬台幣, 只有 Margin 為 %)\n"
     section += "### 年度關鍵財務數據 (近 3 年)\n"
     if data["annual"] is not None and not data["annual"].empty:
-        section += data["annual"].to_markdown(floatfmt=".2f") + "\n\n"
+        df = data["annual"].fillna("-")
+        section += df.to_markdown(floatfmt=".2f") + "\n\n"
     else:
         section += "無可用數據。\n\n"
     section += "### 季度關鍵財務數據 (近 4 季)\n"
     if data["quarterly"] is not None and not data["quarterly"].empty:
-        section += data["quarterly"].to_markdown(floatfmt=".2f") + "\n"
+        df = data["quarterly"].fillna("-")
+        section += df.to_markdown(floatfmt=".2f") + "\n"
     else:
         section += "無可用數據。\n"
     return section

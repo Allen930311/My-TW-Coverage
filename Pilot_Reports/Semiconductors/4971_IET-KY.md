@@ -44,16 +44,16 @@
 ### 季度關鍵財務數據 (近 4 季)
 |                         |   2024-06-30 00:00:00 |   2024-09-30 00:00:00 |   2024-12-31 00:00:00 |   2025-03-31 00:00:00 |
 |:------------------------|----------------------:|----------------------:|----------------------:|----------------------:|
-| Revenue                 |                   nan |                   nan |                225.19 |                270.39 |
-| Gross Profit            |                   nan |                   nan |                 53.22 |                 93.78 |
-| Gross Margin (%)        |                   nan |                   nan |                 23.63 |                 34.68 |
-| Selling & Marketing Exp |                   nan |                   nan |                  2.22 |                  1.53 |
-| General & Admin Exp     |                   nan |                   nan |                 34.37 |                 36.06 |
-| Operating Income        |                   nan |                   nan |                 -1.12 |                 42.99 |
-| Operating Margin (%)    |                   nan |                   nan |                 -0.50 |                 15.90 |
-| Net Income              |                   nan |                   nan |                -27.30 |                -59.71 |
-| Net Margin (%)          |                   nan |                   nan |                -12.12 |                -22.08 |
-| Op Cash Flow            |                   nan |                   nan |                 15.64 |                 60.05 |
-| Investing Cash Flow     |                   nan |                   nan |                 67.83 |               -124.70 |
-| Financing Cash Flow     |                   nan |                   nan |                 -0.32 |                 -0.30 |
-| CAPEX                   |                   nan |                   nan |                -35.49 |                -97.23 |
+| Revenue                 |                   - |                   - |                225.19 |                270.39 |
+| Gross Profit            |                   - |                   - |                 53.22 |                 93.78 |
+| Gross Margin (%)        |                   - |                   - |                 23.63 |                 34.68 |
+| Selling & Marketing Exp |                   - |                   - |                  2.22 |                  1.53 |
+| General & Admin Exp     |                   - |                   - |                 34.37 |                 36.06 |
+| Operating Income        |                   - |                   - |                 -1.12 |                 42.99 |
+| Operating Margin (%)    |                   - |                   - |                 -0.50 |                 15.90 |
+| Net Income              |                   - |                   - |                -27.30 |                -59.71 |
+| Net Margin (%)          |                   - |                   - |                -12.12 |                -22.08 |
+| Op Cash Flow            |                   - |                   - |                 15.64 |                 60.05 |
+| Investing Cash Flow     |                   - |                   - |                 67.83 |               -124.70 |
+| Financing Cash Flow     |                   - |                   - |                 -0.32 |                 -0.30 |
+| CAPEX                   |                   - |                   - |                -35.49 |                -97.23 |
