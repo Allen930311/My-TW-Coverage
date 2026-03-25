@@ -174,6 +174,8 @@ def fetch_financials(ticker):
             )
 
             # Valuation multiples
+            from datetime import datetime
+
             valuation = {}
             for key, label in [
                 ("trailingPE", "P/E (TTM)"),
@@ -184,6 +186,16 @@ def fetch_financials(ticker):
             ]:
                 val = info.get(key)
                 valuation[label] = f"{val:.2f}" if val else "N/A"
+
+            # Period info for TTM and Forward
+            mrq = info.get("mostRecentQuarter")
+            nfy = info.get("nextFiscalYearEnd")
+            valuation["_ttm_end"] = (
+                datetime.fromtimestamp(mrq).strftime("%Y-%m-%d") if mrq else None
+            )
+            valuation["_fwd_end"] = (
+                datetime.fromtimestamp(nfy).strftime("%Y-%m-%d") if nfy else None
+            )
 
             return {
                 "annual": df_annual,
@@ -227,7 +239,18 @@ def build_financial_section(data):
         header_row = "| " + " | ".join(h.rjust(w) for h, w in zip(headers, widths)) + " |"
         sep_row = "|" + "|".join("-" * (w + 2) for w in widths) + "|"
         val_row = "| " + " | ".join(val.rjust(w) for val, w in zip(values, widths)) + " |"
-        section += "### 估值指標\n"
+
+        # Period annotation
+        ttm_end = v.get("_ttm_end")
+        fwd_end = v.get("_fwd_end")
+        period_parts = []
+        if ttm_end:
+            period_parts.append(f"TTM 截至 {ttm_end}")
+        if fwd_end:
+            period_parts.append(f"Forward 預估至 {fwd_end}")
+        period_note = " | ".join(period_parts) if period_parts else ""
+
+        section += f"### 估值指標 ({period_note})\n" if period_note else "### 估值指標\n"
         section += header_row + "\n"
         section += sep_row + "\n"
         section += val_row + "\n\n"
