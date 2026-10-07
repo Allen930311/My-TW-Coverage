@@ -116,8 +116,9 @@ def material_events(registry: dict[str, Any], since: date) -> list[dict[str, Any
     return events
 
 
-def monthly_revenue_events(registry: dict[str, Any], since: date) -> list[dict[str, Any]]:
-    src = source(registry, "mops_monthly_revenue_public")
+def monthly_revenue_events(registry: dict[str, Any], since: date, scope: str) -> list[dict[str, Any]]:
+    source_id = "twse_monthly_revenue" if scope == "twse" else "mops_monthly_revenue_public"
+    src = source(registry, source_id)
     rows = fetch_json(src["url"])
     events = []
     for raw in rows:
@@ -142,9 +143,24 @@ def monthly_revenue_events(registry: dict[str, Any], since: date) -> list[dict[s
     return events
 
 
+def coverage_gaps(registry: dict[str, Any], scope: str) -> list[dict[str, str]]:
+    if scope == "twse":
+        return []
+    required = source(registry, "tpex_material_events_official")
+    if required.get("adapter_status") == "QUALIFIED":
+        return []
+    return [{
+        "source_id": required["id"],
+        "scope": "TPEx",
+        "reason": "official material-event machine adapter is not yet qualified",
+    }]
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(description="Read-only incremental event census for My-TW-Coverage")
     parser.add_argument("--since", help="YYYY-MM-DD. Default: two calendar days ago in Asia/Taipei.")
+    parser.add_argument("--scope", choices=["all", "twse"], default="all",
+                        help="Default all fails closed until TPEx material-event adapter is qualified.")
     parser.add_argument("--output", help="Optional JSON output path.")
     args = parser.parse_args()
 
@@ -155,12 +171,14 @@ def main() -> int:
     events: list[dict[str, Any]] = []
     errors: list[dict[str, str]] = []
     checked: list[str] = []
-    for source_id, loader in (
-        ("twse_material_events", material_events),
-        ("mops_monthly_revenue_public", monthly_revenue_events),
-    ):
+    loaders = [
+        ("twse_material_events", lambda: material_events(registry, since)),
+        (("twse_monthly_revenue" if args.scope == "twse" else "mops_monthly_revenue_public"),
+         lambda: monthly_revenue_events(registry, since, args.scope)),
+    ]
+    for source_id, loader in loaders:
         try:
-            events.extend(loader(registry, since))
+            events.extend(loader())
             checked.append(source_id)
         except (urllib.error.URLError, TimeoutError, ValueError, KeyError, json.JSONDecodeError) as exc:
             errors.append({"source_id": source_id, "error": str(exc)})
@@ -169,12 +187,15 @@ def main() -> int:
     events = sorted(deduped.values(), key=lambda x: (x["published_at"], x["ticker"], x["event_type"], x["fingerprint"]))
     affected = sorted({event["ticker"] for event in events})
 
+    gaps = coverage_gaps(registry, args.scope)
     payload = {
         "schema_version": "coverage-event-census-v1",
         "market": "TW",
+        "coverage_scope": args.scope,
         "generated_at": now.isoformat(),
         "since": since.isoformat(),
-        "complete": not errors,
+        "complete": not errors and not gaps,
+        "coverage_gaps": gaps,
         "sources_checked": checked,
         "source_errors": errors,
         "affected_tickers": affected,

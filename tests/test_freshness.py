@@ -33,6 +33,15 @@ class FreshnessTests(unittest.TestCase):
         self.assertEqual(freshness.classify_timestamp(None, rule, now), "UNKNOWN")
         self.assertEqual(freshness.classify_timestamp("2026-10-08T12:00:00Z", rule, now), "BLOCKED")
 
+    def test_all_scope_fails_closed_without_tpex_adapter(self):
+        registry = {"sources": [{
+            "id": "tpex_material_events_official",
+            "adapter_status": "MACHINE_ADAPTER_PENDING",
+        }]}
+        gaps = event_census.coverage_gaps(registry, "all")
+        self.assertEqual(gaps[0]["scope"], "TPEx")
+        self.assertEqual(event_census.coverage_gaps(registry, "twse"), [])
+
     def test_publication_gate_fail_closed(self):
         contract = {
             "publication_gate": {

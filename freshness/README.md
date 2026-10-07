@@ -20,11 +20,12 @@ python scripts/freshness.py Pilot_Reports/Semiconductors/2330_台積電.md --cla
 Discover only tickers affected by recent official events:
 
 ```bash
-python scripts/event_census.py --since 2026-10-01
+python scripts/event_census.py --since 2026-10-01              # all Taiwan; fail-closed until TPEx event adapter is qualified
+python scripts/event_census.py --since 2026-10-01 --scope twse # complete TWSE-only census
 python scripts/event_census.py --since 2026-10-01 --output /tmp/tw-census.json
 ```
 
-The census is read-only and fail-closed. If a required source cannot be checked, `complete=false` and the process exits non-zero. A zero-event census is only trustworthy when all required census sources were checked successfully.
+The census is read-only and fail-closed. The default scope is the full Taiwan stack (`all`). Because the first-party TPEx material-event machine adapter is not yet qualified, full-Taiwan R0 intentionally returns `complete=false` with a `coverage_gaps` entry. Use `--scope twse` only when a TWSE-only census is acceptable. If any required source cannot be checked, `complete=false` and the process exits non-zero. A zero-event census is only trustworthy when the requested scope has no source errors or coverage gaps.
 
 ## R0 boundary
 
