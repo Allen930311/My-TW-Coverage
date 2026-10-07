@@ -1,4 +1,7 @@
 # Task: Establish Company Coverage Prototype
+
+> **Freshness note (2026-10-08):** this file tracks historical build/batch progress. It is **not** authority that company, financial, valuation, supply-chain, or market facts are current. Freshness-sensitive use must revalidate source timestamps/evidence; see `AGENT_CONTEXT.md`.
+
 **SINGLE SOURCE OF TRUTH**: This document is the definitive reference for batch definitions and task progress. Do not rely on external Excel files for batch tracking.
 **MINIMUM REQUIREMENT POLICY**: The tickers listed in this document are the *minimum* required set. You are authorized to discover and add missing tickers if they are not in the Exception List.
 **SINGLE BATCH PROCESSING**: Process entire batches as single units (e.g., Batch 21: 4908-4967) to minimize authorization interruptions. Do not subdivide.
