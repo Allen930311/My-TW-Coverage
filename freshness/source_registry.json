@@ -1,0 +1,23 @@
+{
+  "schema_version": "source-registry-v1",
+  "market": "TW",
+  "policy": {
+    "publication_authority_order": ["PRIMARY", "SECONDARY", "FALLBACK_ONLY"],
+    "rules": [
+      "PRIMARY sources define disclosure and listing truth.",
+      "SECONDARY sources may fill operational gaps only when their as-of timestamp is retained.",
+      "FALLBACK_ONLY sources must never silently override a conflicting PRIMARY source."
+    ]
+  },
+  "sources": [
+    {"id":"twse_company_basic","authority":"PRIMARY","publisher":"Taiwan Stock Exchange","url":"https://openapi.twse.com.tw/v1/opendata/t187ap03_L","domains":["listing_universe","company_profile"],"scope":"TWSE","cadence":"daily_snapshot","census_enabled":false},
+    {"id":"twse_material_events","authority":"PRIMARY","publisher":"Taiwan Stock Exchange / MOPS","url":"https://openapi.twse.com.tw/v1/opendata/t187ap04_L","domains":["material_events","company_profile","supply_chain"],"scope":"TWSE","cadence":"intraday_snapshot","census_enabled":true},
+    {"id":"mops_monthly_revenue_public","authority":"PRIMARY","publisher":"Taiwan Stock Exchange / MOPS","url":"https://openapi.twse.com.tw/v1/opendata/t187ap05_P","domains":["monthly_revenue","financials"],"scope":"public_companies","cadence":"monthly_snapshot","census_enabled":true},
+    {"id":"mops_income_statement_public","authority":"PRIMARY","publisher":"Taiwan Stock Exchange / MOPS","urls":["https://openapi.twse.com.tw/v1/opendata/t187ap06_X_ci","https://openapi.twse.com.tw/v1/opendata/t187ap06_X_basi","https://openapi.twse.com.tw/v1/opendata/t187ap06_X_bd","https://openapi.twse.com.tw/v1/opendata/t187ap06_X_fh","https://openapi.twse.com.tw/v1/opendata/t187ap06_X_ins","https://openapi.twse.com.tw/v1/opendata/t187ap06_X_mim"],"domains":["financials"],"scope":"public_companies","cadence":"filing_snapshot","census_enabled":false},
+    {"id":"mops_balance_sheet_public","authority":"PRIMARY","publisher":"Taiwan Stock Exchange / MOPS","urls":["https://openapi.twse.com.tw/v1/opendata/t187ap07_X_ci","https://openapi.twse.com.tw/v1/opendata/t187ap07_X_basi","https://openapi.twse.com.tw/v1/opendata/t187ap07_X_bd","https://openapi.twse.com.tw/v1/opendata/t187ap07_X_fh","https://openapi.twse.com.tw/v1/opendata/t187ap07_X_ins","https://openapi.twse.com.tw/v1/opendata/t187ap07_X_mim"],"domains":["financials"],"scope":"public_companies","cadence":"filing_snapshot","census_enabled":false},
+    {"id":"twse_daily_market","authority":"PRIMARY","publisher":"Taiwan Stock Exchange","url":"https://openapi.twse.com.tw/v1/exchangeReport/STOCK_DAY_ALL","domains":["market_snapshot"],"scope":"TWSE","cadence":"trading_day","census_enabled":false},
+    {"id":"twse_daily_valuation","authority":"PRIMARY","publisher":"Taiwan Stock Exchange","url":"https://openapi.twse.com.tw/v1/exchangeReport/BWIBBU_ALL","domains":["valuation"],"scope":"TWSE","cadence":"trading_day","census_enabled":false},
+    {"id":"tpex_market_official","authority":"PRIMARY","publisher":"Taipei Exchange","url":"https://www.tpex.org.tw/en-us/mainboard/trading/info/stock-pricing.html","domains":["listing_universe","market_snapshot","valuation"],"scope":"TPEx","cadence":"trading_day","census_enabled":false,"adapter_status":"MACHINE_ADAPTER_PENDING","note":"Keep OTC market claims blocked or secondary until a stable first-party machine adapter is qualified."},
+    {"id":"yfinance_secondary","authority":"SECONDARY","publisher":"Yahoo Finance via yfinance","url":"https://finance.yahoo.com/","domains":["market_snapshot","valuation","financials"],"scope":"TWSE_TPEx","cadence":"best_effort","census_enabled":false,"publication_use":"Allowed only with explicit as-of timestamp and no conflict with PRIMARY sources."}
+  ]
+}
