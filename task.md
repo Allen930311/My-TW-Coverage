@@ -1,12 +1,16 @@
 # Task: Establish Company Coverage Prototype
 
-> **Freshness note (2026-10-08):** this file tracks historical build/batch progress. It is **not** authority that company, financial, valuation, supply-chain, or market facts are current. Freshness-sensitive use must revalidate source timestamps/evidence; see `AGENT_CONTEXT.md`.
+> **HISTORICAL BUILD LEDGER — NOT CURRENT AUTHORIZATION (2026-10-08):** this file preserves the old prototype / batch-enrichment program and its completion history. It is not Current Truth for market/company freshness and it grants **no standing authorization** to discover tickers, process batches, enrich reports, or restart scale-up work. Fresh agents must begin at `AGENT_CONTEXT.md`; the current system gate is Source Registry + Freshness Contract + Incremental Update / Event Census. Any future batch or bulk-refresh work requires a new explicit task.
 
-**SINGLE SOURCE OF TRUTH**: This document is the definitive reference for batch definitions and task progress. Do not rely on external Excel files for batch tracking.
-**MINIMUM REQUIREMENT POLICY**: The tickers listed in this document are the *minimum* required set. You are authorized to discover and add missing tickers if they are not in the Exception List.
-**SINGLE BATCH PROCESSING**: Process entire batches as single units (e.g., Batch 21: 4908-4967) to minimize authorization interruptions. Do not subdivide.
-**UPDATE AFTER EACH BATCH**: Mark tasks as completed in this document immediately after finishing each batch.
-**VERIFICATION PROTOCOL**: Use `find_by_name` or Python scripts (e.g. `debug_batch.py`) to verify file existence. Do NOT rely on `Get-ChildItem` shell output which may be truncated or misleading.
+The directives below are retained only as **historical semantics of the old batch program**:
+
+- **Historical batch ledger:** this file was the batch-definition/progress ledger for that program; it is not repository Current Truth.
+- **Historical minimum-set rule:** agents were previously allowed to discover missing tickers outside the exception list. **That authorization is retired.**
+- **Historical whole-batch rule:** batches were previously processed as single units. **Do not execute that rule without new authorization.**
+- **Historical update rule:** completed old batches were marked here.
+- **Historical verification note:** `find_by_name` / Python checks were preferred over potentially truncated shell listings.
+
+Everything below is evidence of what the old program attempted or completed, not a queue of work for a fresh agent.
 
 - [x] Planning Phase
     - [x] Create task tracking
